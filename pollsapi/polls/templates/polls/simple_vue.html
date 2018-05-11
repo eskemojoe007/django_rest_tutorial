@@ -1,0 +1,15 @@
+<script src="https://unpkg.com/vue"></script>
+
+<div id="app">
+  <p>${ message }</p>
+</div>
+
+<script type="text/javascript">
+new Vue({
+  el: '#app',
+  delimiters: ['${','}'],
+  data: {
+    message: 'Hello Vue.js!'
+  }
+})
+</script>
