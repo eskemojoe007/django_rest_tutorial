@@ -4,14 +4,14 @@ from rest_framework.test import APIRequestFactory
 from rest_framework.test import APIClient
 from . import apiviews
 from django.contrib.auth import get_user_model
-
+from django.urls import reverse
 # Create your tests here.
 class TestPoll(APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.factory = APIRequestFactory()
         self.view = apiviews.PollViewSet.as_view({'get':'list'})
-        self.uri = '/polls/'
+        self.uri = reverse('polls:polls-list')
         self.user = self.setup_user()
 
     @staticmethod
@@ -19,7 +19,7 @@ class TestPoll(APITestCase):
         User = get_user_model()
         return User.objects.create_user(
             'test',
-            email='test@test.come',
+            email='test@test.com',
             password='test_pass'
         )
 
@@ -31,6 +31,7 @@ class TestPoll(APITestCase):
             response.status_code,200,
             'Expected Response code 200, recieved {} instead.'
             .format(response.status_code))
+
     def test_list2(self):
         self.client.login(username='test',password='test_pass')
         response = self.client.get(self.uri)
@@ -48,5 +49,5 @@ class TestPoll(APITestCase):
         response = self.client.post(self.uri,params)
         self.assertEqual(
             response.status_code,201,
-            'Expected Response code 200, recieved {} instead.'
+            'Expected Response code 201, recieved {} instead.'
             .format(response.status_code))
