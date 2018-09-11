@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
- <meta charset="utf-8">
- <title>Vue-js | Django | Crud App</title>
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="description" content="A simple crud app made with the vue js and django">
-<meta name="keywords" content="vuejs, django, crudapp, restapi">
- <!--  bootstap -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- <!-- boostrap css -->
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue-js | Django | Crud App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple crud app made with the vue js and django">
+  <meta name="keywords" content="vuejs, django, crudapp, restapi">
+  <!--  bootstap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <!-- boostrap css -->
 </head>
+
 <body>
-<!-- bootrtap js files -->
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- bootrtap js files -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
- <!--vue.js files -->
- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
+  <!--vue.js files -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.15/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
 
- <div id="starting">
-     ${ message }
-     <table class="table">
-         <thead>
-           <tr>
-             <th scope="col">#</th>
-             <th scope="col">Question</th>
-             <th scope="col">Created By</th>
-           </tr>
-         </thead>
-         <tbody>
-           <tr v-for="poll in polls">
-             <th scope="row">${poll.id}</th>
-             <td>${poll.question}</td>
-             <td>${poll.created_by.username}</td>
-           </tr>
-         </tbody>
-     </table>
- </div>
+  <div id="starting">
+    ${ message }
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Question</th>
+          <th scope="col">Created By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="poll in polls">
+          <th scope="row">${poll.id}</th>
+          <td>${poll.question}</td>
+          <td>${poll.created_by.username}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
+
 </html>
 <script type="text/javascript">
-new Vue({
+  new Vue({
     el: '#starting',
-    delimiters: ['${','}'],
+    delimiters: ['${', '}'],
     data: {
-        polls: [],
-        loading: false,
-        message: 'You loaded this page on ' + new Date().toLocaleString(),
+      polls: [],
+      loading: false,
+      message: 'You loaded this page on ' + new Date().toLocaleString(),
     },
     mounted: function() {
-        this.getPolls();
+      this.getPolls();
     },
     methods: {
-        getPolls: function() {
-            this.loading = true;
-            this.$http.get('/polls/polls/')
-            .then((response) =>{
-                this.polls = response.data;
-                this.loading = false;
-            })
-            .catch((err)=> {
-                this.loading=false;
-                console.log(err);
-            })
-        }
+      getPolls: function() {
+        this.loading = true;
+        this.$http.get('/polls/polls/')
+          .then((response) => {
+            this.polls = response.data;
+            this.loading = false;
+          })
+          .catch((err) => {
+            this.loading = false;
+            console.log(err);
+          })
+      }
     }
-});
+  });
 </script>
